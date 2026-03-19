@@ -4,11 +4,43 @@ import "./App.css";
 const NAV_LINKS = [
   { id: "hero", label: "Home" },
   { id: "biography", label: "Biography" },
+  { id: "family", label: "Family" },
   { id: "works", label: "Works" },
   { id: "legacy", label: "Legacy" },
   { id: "timeline", label: "Timeline" },
   { id: "quotes", label: "Quotes" },
 ];
+
+const FAMILY = {
+  father: {
+    name: "Francisco Mercado Rizal",
+    years: "1818 – 1898",
+    role: "Father",
+    desc: "A prosperous farmer and tenant of a Dominican-owned hacienda in Calamba, Francisco was a man of strong character and deep faith. He worked hard to provide his children with the finest education possible, sending José to Manila and later supporting his studies abroad. He was arrested and imprisoned during the colonial crackdown and died just two years after his son's execution.",
+    initial: "F",
+    color: "#4A2C00",
+  },
+  mother: {
+    name: "Teodora Alonso Realonda",
+    years: "1827 – 1911",
+    role: "Mother",
+    desc: "One of the most educated women of her time, Teodora was José's first teacher — she taught him to read and instilled in him a love of poetry and literature. Her own unjust imprisonment by colonial authorities for a crime she did not commit deeply shaped Rizal's hatred of colonial injustice. He credited her as the greatest influence on his intellectual and moral development.",
+    initial: "T",
+    color: "#2D5016",
+  },
+  siblings: [
+    { name: "Saturnina Rizal", years: "1850 – 1913", nickname: "Neneng", desc: "The eldest child, she was a pillar of the family and maintained close correspondence with José throughout his exile and travels." },
+    { name: "Paciano Rizal", years: "1851 – 1930", nickname: "Ate", desc: "José's only brother and closest confidant. A revolutionary in his own right, Paciano financially supported José's education in Europe and later became a general in the Philippine Revolution." },
+    { name: "Narcisa Rizal", years: "1852 – 1939", nickname: "Sisa", desc: "The inspiration behind the tragic character 'Sisa' in Noli Me Tángere. She was devoted to her family and was one of the siblings present at José's burial." },
+    { name: "Olympia Rizal", years: "1855 – 1887", nickname: "Ypia", desc: "Died young at age 32, the same year Noli Me Tángere was published. José mourned her deeply from afar in Europe." },
+    { name: "Lucia Rizal", years: "1857 – 1919", nickname: "Urang", desc: "Married Mariano Herbosa, who was denied a Catholic burial due to his association with Rizal — an injustice that further fueled José's anti-clerical writings." },
+    { name: "María Rizal", years: "1859 – 1945", nickname: "Biang", desc: "The longest-lived of the Rizal siblings, she outlived José by nearly 50 years and preserved much of the family's history and legacy." },
+    { name: "Concepción Rizal", years: "1862 – 1865", nickname: "Concha", desc: "The eighth child, she died at just three years old. Her early death was José's first experience of grief, which he later recalled with deep sadness in his writings." },
+    { name: "Josefa Rizal", years: "1865 – 1945", nickname: "Panggoy", desc: "Suffered from epilepsy but lived a long life. She and Trinidad were among the last surviving siblings and guardians of Rizal's memory." },
+    { name: "Trinidad Rizal", years: "1868 – 1951", nickname: "Trining", desc: "The youngest sister to survive to adulthood. It was to Trinidad that José secretly passed his final poem Mi Último Adiós, hidden inside an alcohol lamp the night before his execution." },
+    { name: "Soledad Rizal", years: "1870 – 1929", nickname: "Choleng", desc: "The youngest of the Rizal children. She was only 26 when her brother was executed and carried the grief of the family's losses throughout her life." },
+  ],
+};
 
 const TIMELINE = [
   { year: "1861", title: "Born in Calamba", desc: "José Protasio Rizal Mercado y Alonso Realonda born on June 19 in Calamba, Laguna." },
@@ -216,6 +248,69 @@ function Biography() {
   );
 }
 
+function Family() {
+  const [activeSibling, setActiveSibling] = useState(0);
+  const { father, mother, siblings } = FAMILY;
+  return (
+    <section id="family" className="section family-section">
+      <div className="container">
+        <FadeIn>
+          <span className="section-label">The Rizal Family</span>
+          <h2 className="section-title">Roots of a Hero</h2>
+        </FadeIn>
+
+        <div className="family-parents">
+          {[father, mother].map((p, i) => (
+            <FadeIn key={i} delay={i * 120}>
+              <div className="parent-card" style={{ "--pcolor": p.color }}>
+                <div className="parent-avatar" style={{ background: p.color }}>
+                  <span>{p.initial}</span>
+                </div>
+                <div className="parent-info">
+                  <span className="parent-role">{p.role}</span>
+                  <h3 className="parent-name">{p.name}</h3>
+                  <span className="parent-years">{p.years}</span>
+                  <p className="parent-desc">{p.desc}</p>
+                </div>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+
+        <FadeIn delay={100}>
+          <h3 className="siblings-heading">Siblings <span>— {siblings.length} in total, José was the 7th child</span></h3>
+        </FadeIn>
+
+        <div className="siblings-layout">
+          <FadeIn delay={120} className="siblings-list">
+            {siblings.map((s, i) => (
+              <button
+                key={i}
+                className={`sibling-tab ${activeSibling === i ? "sibling-tab--active" : ""}`}
+                onClick={() => setActiveSibling(i)}
+              >
+                <span className="sibling-num">{i + 1}</span>
+                <span className="sibling-tab-name">{s.name.split(" ")[0]}</span>
+                <span className="sibling-tab-nick">"{s.nickname}"</span>
+              </button>
+            ))}
+          </FadeIn>
+          <FadeIn delay={180} className="sibling-detail">
+            <div className="sibling-detail-inner" key={activeSibling}>
+              <div className="sibling-detail-top">
+                <h4 className="sibling-detail-name">{siblings[activeSibling].name}</h4>
+                <span className="sibling-detail-years">{siblings[activeSibling].years}</span>
+              </div>
+              <p className="sibling-detail-nick">Called "{siblings[activeSibling].nickname}" by the family</p>
+              <p className="sibling-detail-desc">{siblings[activeSibling].desc}</p>
+            </div>
+          </FadeIn>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Works() {
   const [active, setActive] = useState(0);
   return (
@@ -375,6 +470,7 @@ export default function App() {
       <main>
         <Hero />
         <Biography />
+        <Family />
         <Works />
         <Legacy />
         <Timeline />
