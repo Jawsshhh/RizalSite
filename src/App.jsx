@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
+import rizalPhoto from "./assets/rizal.jpg";
 
 const NAV_LINKS = [
   { id: "hero", label: "Home" },
@@ -16,7 +17,7 @@ const FAMILY = {
     name: "Francisco Mercado Rizal",
     years: "1818 – 1898",
     role: "Father",
-    desc: "A prosperous farmer and tenant of a Dominican-owned hacienda in Calamba, Francisco was a man of strong character and deep faith. He worked hard to provide his children with the finest education possible, sending José to Manila and later supporting his studies abroad. He was arrested and imprisoned during the colonial crackdown and died just two years after his son's execution.",
+    desc: "A prosperous farmer and tenant of a Dominican-owned hacienda in Calamba and of Chinese descent. He married Teodara Alonso on June 28, 1848 and had 11 childred with her, including Rizal. He worked hard to provide his children with the finest education possible, sending José to Manila and later supporting his studies abroad. He was arrested and imprisoned during the colonial crackdown and died a years after his son's execution.",
     initial: "F",
     color: "#4A2C00",
   },
@@ -24,21 +25,21 @@ const FAMILY = {
     name: "Teodora Alonso Realonda",
     years: "1827 – 1911",
     role: "Mother",
-    desc: "One of the most educated women of her time, Teodora was José's first teacher — she taught him to read and instilled in him a love of poetry and literature. Her own unjust imprisonment by colonial authorities for a crime she did not commit deeply shaped Rizal's hatred of colonial injustice. He credited her as the greatest influence on his intellectual and moral development.",
+    desc: "An educated women of her time, Teodora was José's first teacher. She taught him to read and instilled in him a love of poetry and literature and became Rizal's reason to pursue medicine. Her own unjust imprisonment by colonial authorities for a crime she did not commit deeply shaped Rizal's hatred of colonial injustice. He credited her as the greatest influence on his intellectual and moral development.",
     initial: "T",
     color: "#2D5016",
   },
   siblings: [
-    { name: "Saturnina", years: "1850 – 1913", nickname: "Neneng", desc: "The eldest child, she was a pillar of the family and maintained close correspondence with José throughout his exile and travels." },
-    { name: "Paciano", years: "1851 – 1930", nickname: "Ate", desc: "José's only brother and closest confidant. A revolutionary in his own right, Paciano financially supported José's education in Europe and later became a general in the Philippine Revolution." },
-    { name: "Narcisa", years: "1852 – 1939", nickname: "Sisa", desc: "The inspiration behind the tragic character 'Sisa' in Noli Me Tángere. She was devoted to her family and was one of the siblings present at José's burial." },
-    { name: "Olympia", years: "1855 – 1887", nickname: "Ypia", desc: "Died young at age 32, the same year Noli Me Tángere was published. José mourned her deeply from afar in Europe." },
-    { name: "Lucia", years: "1857 – 1919", nickname: "Urang", desc: "Married Mariano Herbosa, who was denied a Catholic burial due to his association with Rizal — an injustice that further fueled José's anti-clerical writings." },
-    { name: "María", years: "1859 – 1945", nickname: "Biang", desc: "The longest-lived of the Rizal siblings, she outlived José by nearly 50 years and preserved much of the family's history and legacy." },
-    { name: "Concepción", years: "1862 – 1865", nickname: "Concha", desc: "The eighth child, she died at just three years old. Her early death was José's first experience of grief, which he later recalled with deep sadness in his writings." },
-    { name: "Josefa", years: "1865 – 1945", nickname: "Panggoy", desc: "Suffered from epilepsy but lived a long life. She and Trinidad were among the last surviving siblings and guardians of Rizal's memory." },
-    { name: "Trinidad", years: "1868 – 1951", nickname: "Trining", desc: "The youngest sister to survive to adulthood. It was to Trinidad that José secretly passed his final poem Mi Último Adiós, hidden inside an alcohol lamp the night before his execution." },
-    { name: "Soledad", years: "1870 – 1929", nickname: "Choleng", desc: "The youngest of the Rizal children. She was only 26 when her brother was executed and carried the grief of the family's losses throughout her life." },
+    { name: "Saturnina", years: "1850 – 1913", nickname: "Neneng", desc: "The eldest child and helped raised her siblings. She also published Pascual Poblete's Tagalog translation of Noli me Tangere in 1909" },
+    { name: "Paciano", years: "1851 – 1930", nickname: "Ciano", desc: "José's only brother and closest sibling. Paciano financially supported José's education in Europe and frequently wrote updates to Rizal about the country's state. Paciano was also a Katipunero and later became a general in the Philippine Revolution after Rizal's execution." },
+    { name: "Narcisa", years: "1852 – 1939", nickname: "Sisa", desc: "The inspiration behind the tragic character 'Sisa' in Noli Me Tángere. She was the one who searched for Rizal's body after his execution, even buying the lot next to Rizal's grave to prevent tampering. It was also said that she was the only one who could narrate Rizal's poems." },
+    { name: "Olimpia", years: "1855 – 1887", nickname: "Ypia", desc: "Died young at age 32, the same year Noli Me Tángere was published. José mourned her from afar in Europe." },
+    { name: "Lucia", years: "1857 – 1919", nickname: "Lucia", desc: "Married Mariano Herbosa, who was denied a Catholic burial due to his association with Rizal. Lucia also travelled to Dapitan to stay with Rizal when he was exiled." },
+    { name: "María", years: "1859 – 1945", nickname: "Biang", desc: "The longest-lived of the Rizal siblings, she outlived José by nearly 50 years and preserved much of the family's history and legacy. She was also one of Rizal's most trusted confidantes, with Rizal often asking her about politics and his desire to marry Josephine Bracken." },
+    { name: "Concepción", years: "1862 – 1865", nickname: "Concha", desc: "The eighth child, she died at just three years old. Her early death was Rizal's first experience of grief, which he later recalled with deep sadness in his writings." },
+    { name: "Josefa", years: "1865 – 1945", nickname: "Panggoy", desc: "Suffered from epilepsy but lived a long life. She and Trinidad were among the last surviving siblings and guardians of Rizal's memory. She was also politically active and joined the Katipunan." },
+    { name: "Trinidad", years: "1868 – 1951", nickname: "Trining", desc: "The youngest sister to survive to adulthood. It was to Trinidad that Rizal secretly passed his final poem Mi Último Adiós, hidden inside an alcohol lamp the night before his execution." },
+    { name: "Soledad", years: "1870 – 1929", nickname: "Choleng", desc: "The youngest of the Rizal children. She was also known to be the most 'controversial' of her siblings, as she married Pantaleon Quintero of Calamba in 1890 without the consent of their parents, disturbing the peace of the family." },
   ],
 };
 
@@ -207,15 +208,7 @@ function Biography() {
           <FadeIn delay={100} className="bio-portrait-col">
             <div className="bio-portrait">
               <div className="portrait-placeholder">
-                <svg viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="200" height="240" fill="#1a1208"/>
-                  <ellipse cx="100" cy="85" rx="42" ry="48" fill="#2d1f0e"/>
-                  <ellipse cx="100" cy="85" rx="36" ry="42" fill="#3d2a12"/>
-                  <path d="M58 180 Q100 155 142 180 L148 240 H52 Z" fill="#2d1f0e"/>
-                  <ellipse cx="100" cy="82" rx="28" ry="32" fill="#4a3318"/>
-                  <text x="100" y="220" textAnchor="middle" fill="#8b6914" fontSize="11" fontFamily="Georgia, serif" letterSpacing="2">JOSE RIZAL</text>
-                  <text x="100" y="235" textAnchor="middle" fill="#5a4410" fontSize="8" fontFamily="Georgia, serif" letterSpacing="1">1861 — 1896</text>
-                </svg>
+                <img src={rizalPhoto} alt="José Rizal" style={{ width: "100%", display: "block" }} />
               </div>
               <div className="portrait-caption">Illustrated portrait · National Hero</div>
             </div>
