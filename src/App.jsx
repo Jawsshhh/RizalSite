@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
-import rizalPhoto from "./assets/rizal.jpg";
+import rizalPhoto from "./assets/rizal.png";
 
 const NAV_LINKS = [
   { id: "hero", label: "Home" },
